@@ -21,7 +21,7 @@ var (
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintln(os.Stderr, err)
+		fmt.Fprintln(os.Stderr, "Error:", err)
 		os.Exit(1)
 	}
 }
@@ -29,5 +29,7 @@ func Execute() {
 func init() {
 
 	config.Init()
+	rootCmd.SilenceUsage = true
+	rootCmd.SilenceErrors = true
 
 }

@@ -17,13 +17,12 @@ var connectCommand = &cobra.Command{
 	Use:   "connect [server name]",
 	Short: "Connect to a server",
 	Args:  cobra.MinimumNArgs(1),
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 
 		server := config.GetServer(args[0])
 
 		if server == nil {
-			fmt.Printf("Server %s not found\n", args[0])
-			os.Exit(1)
+			return fmt.Errorf("connect server: %w", fmt.Errorf("server %s not found", args[0]))
 		}
 
 		sshCmd := internal.Connect(server)
@@ -36,6 +35,8 @@ var connectCommand = &cobra.Command{
 		if err != nil {
 			panic(err)
 		}
+
+		return nil
 
 	},
 }

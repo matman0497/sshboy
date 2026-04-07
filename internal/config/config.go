@@ -89,6 +89,13 @@ func DeleteServer(name string) bool {
 func getPath() string {
 	home, _ := os.UserHomeDir()
 
+	if os.Getenv("TESTING") == "true" {
+		return fmt.Sprintf(
+			"%s/.sshboy/inventory-testing.yaml",
+			home,
+		)
+	}
+
 	return fmt.Sprintf(
 		"%s/.sshboy/inventory.yaml",
 		home,

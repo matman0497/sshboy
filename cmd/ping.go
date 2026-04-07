@@ -17,13 +17,12 @@ var pingCommand = &cobra.Command{
 	Use:   "ping [server name]",
 	Short: "Ping a server",
 	Args:  cobra.MinimumNArgs(1),
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 
 		server := config.GetServer(args[0])
 
 		if server == nil {
-			fmt.Printf("Server %s not found\n", args[0])
-			os.Exit(1)
+			return fmt.Errorf("connect server: %w", fmt.Errorf("server %s not found", args[0]))
 		}
 
 		sshCmd := exec.Command("ping", server.Host)
@@ -37,5 +36,6 @@ var pingCommand = &cobra.Command{
 			panic(err)
 		}
 
+		return nil
 	},
 }

@@ -17,7 +17,7 @@ func init() {
 var addCommand = &cobra.Command{
 	Use:   "add",
 	Short: "Add a new server configuration",
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 
 		reader := bufio.NewReader(os.Stdin)
 		fmt.Print("Name: ")
@@ -34,13 +34,18 @@ var addCommand = &cobra.Command{
 		user = strings.TrimSpace(user)
 		name = strings.TrimSpace(name)
 
+		if host == "" || user == "" || name == "" {
+			return fmt.Errorf("add server: %w", fmt.Errorf("Host, User or Name must not be blank"))
+		}
+
 		err := config.Add(name, host, user)
 
 		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			os.Exit(1)
+			return fmt.Errorf("save config: %w", err)
 		}
 
 		config.Save()
+
+		return nil
 	},
 }
