@@ -55,7 +55,7 @@ func HandleServerListUpdate(m Model, msg tea.Msg) (Model, tea.Cmd) {
 			//delete the server from the config
 			var serverNameToDelete = m.serverListModel.table.SelectedRow()[0]
 			config.DeleteServer(serverNameToDelete)
-			//config.Save()
+			config.Save()
 
 			//update the table view by removing the deleted row
 			//TODO: consider if it would be better/easier to just reload all servers from the config
