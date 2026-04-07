@@ -5,7 +5,7 @@ Simple CLI for storing SSH hosts and connecting to them quickly.
 ## Install
 
 ```bash
-go install github.com/mattiamancina/sshboy@latest
+go install github.com/matman0497/sshboy@latest
 ```
 
 This places the `sshboy` binary in your `GOBIN` (defaults to `~/go/bin`). Make sure that directory is on your `PATH`.

@@ -1,7 +1,7 @@
 package interactive
 
 import (
-	"mattiamancina/sshboy/internal/config"
+	"matman0497/sshboy/internal/config"
 
 	tea "charm.land/bubbletea/v2"
 )

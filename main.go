@@ -1,7 +1,7 @@
 package main
 
 import (
-	"mattiamancina/sshboy/cmd"
+	"matman0497/sshboy/cmd"
 )
 
 func main() {

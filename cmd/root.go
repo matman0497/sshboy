@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"mattiamancina/sshboy/internal/config"
+	"matman0497/sshboy/internal/config"
 	"os"
 
 	"github.com/spf13/cobra"

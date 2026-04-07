@@ -1,4 +1,4 @@
-module mattiamancina/sshboy
+module matman0497/sshboy
 
 go 1.25.4
 

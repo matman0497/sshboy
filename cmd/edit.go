@@ -3,7 +3,7 @@ package cmd
 import (
 	"bufio"
 	"fmt"
-	"mattiamancina/sshboy/internal/config"
+	"matman0497/sshboy/internal/config"
 	"os"
 	"strings"
 

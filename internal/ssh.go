@@ -2,7 +2,7 @@ package internal
 
 import (
 	"fmt"
-	"mattiamancina/sshboy/internal/config"
+	"matman0497/sshboy/internal/config"
 	"os"
 	"os/exec"
 )

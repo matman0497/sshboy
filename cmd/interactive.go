@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"mattiamancina/sshboy/interactive"
-	"mattiamancina/sshboy/internal/config"
+	"matman0497/sshboy/interactive"
+	"matman0497/sshboy/internal/config"
 
 	"github.com/spf13/cobra"
 )
