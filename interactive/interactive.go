@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"mattiamancina/sshboy/internal/config"
 	"os"
+	"sort"
 	"strings"
 
 	"charm.land/bubbles/v2/table"
@@ -145,7 +146,12 @@ func Init() {
 	//init the table
 	var tableValues []table.Row
 
-	for i, server := range config.Get().Servers {
+	var servers = config.Get().Servers
+
+	sort.Slice(servers, func(i, j int) bool {
+		return config.Get().Servers[i].Name < config.Get().Servers[j].Name
+	})
+	for i, server := range servers {
 		tableValues = append(tableValues, table.Row{server.Name, server.Host, string(rune(i))})
 	}
 
