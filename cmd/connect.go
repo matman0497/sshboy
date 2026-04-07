@@ -2,9 +2,9 @@ package cmd
 
 import (
 	"fmt"
-	"mattiamancina/sshboy/config"
+	"mattiamancina/sshboy/internal"
+	"mattiamancina/sshboy/internal/config"
 	"os"
-	"os/exec"
 
 	"github.com/spf13/cobra"
 )
@@ -26,7 +26,7 @@ var connectCommand = &cobra.Command{
 			os.Exit(1)
 		}
 
-		sshCmd := exec.Command("ssh", fmt.Sprintf("%s@%s", server.User, server.Host))
+		sshCmd := internal.Connect(server)
 
 		sshCmd.Stdin = os.Stdin
 		sshCmd.Stdout = os.Stdout

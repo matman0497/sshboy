@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"mattiamancina/sshboy/config"
+	"mattiamancina/sshboy/internal/config"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -12,7 +12,7 @@ var (
 	rootCmd = &cobra.Command{
 
 		Use:   "sshboy",
-		Short: "sshboy is a simple tool to connect to a server",
+		Short: "sshboy is a simple tool to connect to a server via ssh",
 		Run: func(cmd *cobra.Command, args []string) {
 
 		},

@@ -11,12 +11,6 @@ type Config struct {
 	Servers []Server `yaml:"servers"`
 }
 
-type Server struct {
-	Name string `yaml:"name"`
-	Host string `yaml:"host"`
-	User string `yaml:"user"`
-}
-
 var cfg *Config
 
 func Init() {
@@ -70,6 +64,25 @@ func GetServer(name string) *Server {
 	}
 
 	return nil
+
+}
+
+func DeleteServer(name string) bool {
+
+	var index = -1
+	for i := range cfg.Servers {
+		if cfg.Servers[i].Name == name {
+			index = i
+		}
+	}
+
+	if index == -1 {
+		return false
+	}
+
+	cfg.Servers = append(cfg.Servers[:index], cfg.Servers[index+1:]...)
+
+	return true
 
 }
 
