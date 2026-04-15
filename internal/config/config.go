@@ -7,13 +7,42 @@ import (
 	"github.com/goccy/go-yaml"
 )
 
+type Store struct{}
 type Config struct {
 	Servers []Server `yaml:"servers"`
 }
 
-var cfg *Config
+var (
+	cfg   *Config
+	store Store
+)
 
 func Init() {
+	store.Init()
+}
+
+func List() []Server {
+	return store.List()
+}
+
+func Save() error {
+	store.Save()
+	return nil
+}
+
+func Add(name, host, user string) error {
+	return store.Add(name, host, user)
+}
+
+func GetServer(name string) *Server {
+	return store.Get(name)
+}
+
+func Delete(name string) error {
+	return store.Delete(name)
+}
+
+func (Store) Init() {
 
 	data, err := os.ReadFile(getPath())
 	if err != nil {
@@ -31,22 +60,23 @@ func Init() {
 	cfg = c
 }
 
-func Get() *Config {
+func (Store) List() []Server {
 	if cfg == nil {
 		panic("config not initialized")
 	}
-	return cfg
+	return cfg.Servers
 }
 
-func Save() {
+func (Store) Save() error {
 	bytes, _ := yaml.Marshal(cfg)
 
 	os.WriteFile(getPath(), bytes, 0644)
+
+	return nil
 }
 
-func Add(name string, host string, user string) error {
-
-	if GetServer(name) != nil {
+func (s Store) Add(name string, host string, user string) error {
+	if s.Get(name) != nil {
 		return fmt.Errorf("server %s already exists", name)
 	}
 
@@ -55,8 +85,7 @@ func Add(name string, host string, user string) error {
 	return nil
 }
 
-func GetServer(name string) *Server {
-
+func (Store) Get(name string) *Server {
 	for i := range cfg.Servers {
 		if cfg.Servers[i].Name == name {
 			return &cfg.Servers[i]
@@ -64,11 +93,9 @@ func GetServer(name string) *Server {
 	}
 
 	return nil
-
 }
 
-func DeleteServer(name string) bool {
-
+func (Store) Delete(name string) error {
 	var index = -1
 	for i := range cfg.Servers {
 		if cfg.Servers[i].Name == name {
@@ -77,13 +104,12 @@ func DeleteServer(name string) bool {
 	}
 
 	if index == -1 {
-		return false
+		return nil
 	}
 
 	cfg.Servers = append(cfg.Servers[:index], cfg.Servers[index+1:]...)
 
-	return true
-
+	return nil
 }
 
 func getPath() string {

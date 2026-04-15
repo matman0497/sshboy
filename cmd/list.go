@@ -16,16 +16,18 @@ var listCommand = &cobra.Command{
 	Use:   "list",
 	Short: "Print all the available servers",
 	Run: func(cmd *cobra.Command, args []string) {
-		prettyPrint(config.Get())
+
+		store := config.Store{}
+		prettyPrint(store.List())
 	},
 }
 
-func prettyPrint(cfg *config.Config) {
+func prettyPrint(servers []config.Server) {
 	var b strings.Builder
 
 	b.WriteString("Hosts:\n")
 
-	for _, s := range cfg.Servers {
+	for _, s := range servers {
 		fmt.Fprintf(&b,
 			"   %s\n"+
 				"      Host: %s\n"+
